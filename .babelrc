@@ -1,9 +1,14 @@
 {
   "presets": [
-    ["env", {
+    "@babel/preset-react",
+    ["@babel/preset-env", {
       "modules": false
+    }]
+  ],
+  "plugins": [
+    ["transform-react-remove-prop-types", {
+      "removeImport": true
     }],
-    "stage-0",
-    "react"
+    "@babel/plugin-proposal-optional-chaining"
   ]
 }
