@@ -2,9 +2,9 @@ import React from 'react'
 import ExpandCollapse from 'react-expansion'
 import { ExpansionDivider } from './divider/Divider'
 import { ExpansionLabel } from './label/Label'
+import FileSystemExpandCollapseDemo from './demos/filesystem/FileSystem'
 
 function BaseIndicator({content, toggleExpansion, style = {}}) {
-  console.log('--->', style)
   return (
     <button
       style={{
@@ -79,6 +79,7 @@ function NormalExpandCollapse(props) {
 export default function App() {
   return (
     <>
+      <FileSystemExpandCollapseDemo />
       <NormalExpandCollapse
         indicatorPosition='start'
         labelPosition='end'
@@ -127,7 +128,6 @@ export default function App() {
 }
 
 function MyComponent() {
-  console.log('rendered my component')
   return (
     <span>Modern React component module</span>
   )

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 const ExpandCollapse = React.forwardRef(({
   expanded: controlledExpansionState,
+  initialValue = false,
   labelPosition = 'start',
   actionsPosition = 'end',
   indicatorPosition = 'end',
@@ -25,7 +26,7 @@ const ExpandCollapse = React.forwardRef(({
   keepMounted
 }, ref) => {
   const isControlled = controlledExpansionState !== undefined
-  const [expansionState, setExpansionState] = React.useState(true)
+  const [expansionState, setExpansionState] = React.useState(initialValue)
   const expanded = isControlled ? controlledExpansionState : expansionState
 
   const expand = React.useCallback(() => {
@@ -42,12 +43,15 @@ const ExpandCollapse = React.forwardRef(({
   }, [])
   const toggleExpansion = React.useCallback(e => {
     if (!isControlled) {
-      e.stopPropagation()
+      e?.stopPropagation?.()
       setExpansionState(old => !old)
     }
   }, [])
 
   const rendered = React.useRef(expanded)
+  if (!rendered.current && expanded) {
+    rendered.current = true
+  }
   const contentContainerRef = React.useRef(null)
   React.useImperativeHandle(ref, () => ({
     expand,
@@ -55,8 +59,8 @@ const ExpandCollapse = React.forwardRef(({
     toggleExpansion
   }))
   React.useLayoutEffect(() => {
-    if (keepMounted && rendered) {
-      contentContainerRef.current.style.display = expanded ? 'block' : 'none'
+    if (keepMounted && rendered.current) {
+      contentContainerRef.current.style.setProperty?.('display', expanded ? 'block' : 'none')
     }
   }, [expanded])
 
@@ -130,6 +134,8 @@ const ExpandCollapse = React.forwardRef(({
 ExpandCollapse.propTypes = {
   // if set, the component becomes controlled
   expanded: PropTypes.bool,
+  // this means it's uncontrolled, but if expanded is present, it overrides initialValue
+  initialValue: PropTypes.bool,
 
   labelPosition: PropTypes.oneOf(['start', 'end']),
   actionsPosition: PropTypes.oneOf(['start', 'end']),
