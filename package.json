@@ -7,6 +7,14 @@
   "repository": "incepter/react-expansion",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
+  "keywords": [
+    "react",
+    "expand",
+    "collapse",
+    "expandable",
+    "expansion",
+    "expand/collapse"
+  ],
   "engines": {
     "node": ">=8",
     "npm": ">=5"
