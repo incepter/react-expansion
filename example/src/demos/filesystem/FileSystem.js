@@ -8,6 +8,11 @@ function FileUnit({children, filename, variant, fileUrl, ...rest}) {
     <ExpandCollapse
       keepMounted
       Component="div"
+      ComponentProps={{
+        style: {
+          width: '300px',
+        }
+      }}
       indicatorPosition='start'
       ExpansionComponent='div'
       ExpansionProps={{style: {display: 'flex', alignItems: 'center'}}}
@@ -119,6 +124,11 @@ export default function FileSystemExpandCollapseDemo() {
     }
   ]
   return (
-    <FileSystem tree={tree}/>
+    <div style={{
+      width: '50%',
+      margin: 'auto'
+    }}>
+      <FileSystem tree={tree}/>
+    </div>
   )
 }
