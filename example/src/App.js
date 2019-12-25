@@ -1,51 +1,49 @@
-import React, { Component } from 'react'
+import React from 'react'
 import ExpandCollapse from 'react-expansion'
+import { ExpansionDivider } from './divider/Divider'
+import { ExpansionLabel } from './label/Label'
+import FileSystemExpandCollapseDemo from './demos/filesystem/FileSystem'
 
-function BaseIndicator({ content, toggleExpansion }) {
+function BaseIndicator({content, toggleExpansion, style = {}}) {
   return (
     <button
       style={{
+        width: 24,
+        height: 24,
         color: 'grey',
         cursor: 'pointer',
         backgroundColor: 'transparent',
         border: '1px solid grey',
-        borderRadius: '50%'
+        borderRadius: '50%',
+        ...style
       }}
       onClick={toggleExpansion}
     >
       {content}
     </button>
   )
-} function DefaultIndicator({
-  position,
-  expanded,
-  toggleExpansion
-}) {
-  if (position === 'start') {
-    return (
-      <BaseIndicator
-        content={expanded ? '\\/' : '>'}
-        toggleExpansion={toggleExpansion}
-      />
-    )
-  }
-  if (position === 'end') {
-    return (
-      <BaseIndicator
-        content={expanded ? '\\/' : '/\\'}
-        toggleExpansion={toggleExpansion}
-      />
-    )
-  }
-  return null
 }
 
-const Divider = () => <hr />
-const ExpansionComponent = ({ expanded, children }) => {
-  const styles = expanded ? { borderBottom: '1px solid #eee' } : {}
+function DefaultIndicator({expanded, toggleExpansion, style}) {
+  return (
+    <BaseIndicator
+      content={expanded ? '-' : '+'}
+      toggleExpansion={toggleExpansion}
+      style={style}
+    />
+  )
+}
+
+const Divider = () => <hr/>
+const ExpansionComponent = ({expanded, toggleExpansion, children, style = {}, clickable}) => {
+  const styles = {...style}
+  if (expanded) {
+    styles.borderBottom = '1px solid #eee'
+  }
   styles.display = 'flex'
-  styles.padding = 24
-  return <div style={styles}>{children}</div>
+  styles.alignItems = 'center'
+  styles.padding = 16
+  return <div onClick={clickable && toggleExpansion} style={styles}>{children}</div>
 }
 
 function NormalExpandCollapse(props) {
@@ -58,38 +56,79 @@ function NormalExpandCollapse(props) {
           borderRadius: 4,
           maxWidth: '60%',
           margin: 'auto',
-          marginTop: 24
+          marginTop: 8
         }
       }}
+      LabelComponent={ExpansionLabel}
       ExpansionComponent={ExpansionComponent}
       IndicatorComponent={DefaultIndicator}
-      DividerComponent={Divider}
+      DividerComponent={ExpansionDivider}
       contentContainerProps={{
         style: {
-          padding: 24
+          padding: 8
         }
       }}
-      label='Normal expand collapse'
+      label='expand/collapse'
       {...props}
     >
-      <MyComponent />
+      {props.children || <MyComponent/>}
     </ExpandCollapse>
   )
 }
+
 export default function App() {
   return (
     <>
-      <NormalExpandCollapse />
-      <NormalExpandCollapse DividerComponent={() => null} indicatorPosition='start' labelPosition='end' keepMounted label='Keep Mounted' />
+      <FileSystemExpandCollapseDemo />
+      <NormalExpandCollapse
+        indicatorPosition='start'
+        labelPosition='end'
+        label='Keep Mounted'
+        DividerComponent={() => null}
+      />
+      <NormalExpandCollapse
+        indicatorPosition='start'
+        labelPosition='end'
+        keepMounted
+        label='Keep Mounted'
+      >
+        <NormalExpandCollapse
+          keepMounted
+          label='Keep Mounted'
+        >
+          <NormalExpandCollapse
+            keepMounted
+            label='Cool divider'
+          >
+            React
+          </NormalExpandCollapse>
+          <NormalExpandCollapse
+            keepMounted
+            label='Keep Mounted'
+          >
+            Expansion
+          </NormalExpandCollapse>
+          is awesome!
+        </NormalExpandCollapse>
+      </NormalExpandCollapse>
+      <NormalExpandCollapse
+        label="click to toggle expansion state"
+        IndicatorComponent={null}
+        DividerComponent={null}
+        ExpansionProps={{
+          style: {
+            borderRadius: 4,
+            cursor: 'pointer'
+          },
+          clickable: true
+        }}
+      />
     </>
   )
 }
 
 function MyComponent() {
-  console.log('rendered my component')
   return (
-    <div>
-      <h1>Modern React component module</h1>
-    </div>
+    <span>Expand collapse children</span>
   )
 }
