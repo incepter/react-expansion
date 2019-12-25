@@ -52,6 +52,8 @@ The `ExpandCollapse` component props are:
 |`children`              | `any`                     | `undefined`      | What will be hidden/visible depending on the expansion state |
 |`label`                 | `any`                     | `undefined`      | The label to display in its position |
 |`keepMounted`           | `bool`                    | `undefined`      | If true, the content will stay into the dom, but the div containing it will have a `display: none` style |
+|`onExpandChange`        | `func`                    | `undefined`      | will be called with the next expansion state whenever the expand collapse changed |
+|`contentDisplay`        | `string`                  | `undefined`      | The display style property's value that will be given the content container when visible |
 
 
 You can also imperatively handle the expansion state if not controlled.

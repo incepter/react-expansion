@@ -23,7 +23,9 @@ const ExpandCollapse = React.forwardRef(({
   actions,
   children,
   label,
-  keepMounted
+  contentDisplay = 'block',
+  keepMounted,
+  onExpandChange
 }, ref) => {
   const isControlled = controlledExpansionState !== undefined
   const [expansionState, setExpansionState] = React.useState(initialValue)
@@ -34,19 +36,22 @@ const ExpandCollapse = React.forwardRef(({
     if (!isControlled && !expansionState) {
       setExpansionState(true)
     }
+    onExpandChange?.(true)
   }, [])
   const collapse = React.useCallback(() => {
     // not controlled and expanded
     if (!isControlled && expansionState) {
       setExpansionState(false)
     }
+    onExpandChange?.(false)
   }, [])
   const toggleExpansion = React.useCallback(e => {
     if (!isControlled) {
       e?.stopPropagation?.()
       setExpansionState(old => !old)
     }
-  }, [])
+    onExpandChange?.(!expanded)
+  }, [expanded])
 
   const rendered = React.useRef(expanded)
   if (!rendered.current && expanded) {
@@ -60,7 +65,7 @@ const ExpandCollapse = React.forwardRef(({
   }))
   React.useLayoutEffect(() => {
     if (keepMounted && rendered.current) {
-      contentContainerRef.current.style.setProperty?.('display', expanded ? 'block' : 'none')
+      contentContainerRef.current.style.setProperty?.('display', expanded ? contentDisplay : 'none')
     }
   }, [expanded])
 
@@ -69,32 +74,36 @@ const ExpandCollapse = React.forwardRef(({
     toggleExpansion
   }
 
-  function renderLabel () {
+  function renderLabel() {
     if (!LabelComponent) {
       return label
     }
     return <LabelComponent {...LabelProps} {...propsToPassDown} position={labelPosition}>{label}</LabelComponent>
   }
-  function renderIndicator () {
+
+  function renderIndicator() {
     if (!IndicatorComponent) {
       return null
     }
-    return <IndicatorComponent {...IndicatorProps} {...propsToPassDown} position={indicatorPosition} />
+    return <IndicatorComponent {...IndicatorProps} {...propsToPassDown} position={indicatorPosition}/>
   }
+
   function renderDivider() {
     if (!DividerComponent) {
       return null
     }
-    return <div style={{ flexGrow: 2 }}><DividerComponent {...DividerProps} {...propsToPassDown} /></div>
+    return <div style={{flexGrow: 2}}><DividerComponent {...DividerProps} {...propsToPassDown} /></div>
   }
+
   function renderActions() {
     if (!ActionsComponent) {
       return actions
     }
     return (
-      <ActionsComponent {...DividerProps} {...propsToPassDown} position={actionsPosition}>{actions}</ActionsComponent>
+      <ActionsComponent {...ActionsProps} {...propsToPassDown} position={actionsPosition}>{actions}</ActionsComponent>
     )
   }
+
   function renderExpansionHeader() {
     const ExpansionHeader = ExpansionComponent || 'div'
     const calculatedProps = ExpansionHeader === 'div' ? {} : {...propsToPassDown}
@@ -142,11 +151,11 @@ ExpandCollapse.propTypes = {
   indicatorPosition: PropTypes.oneOf(['start', 'end']),
 
   Component: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-  LabelComponent: PropTypes.func,
-  ActionsComponent: PropTypes.func,
-  DividerComponent: PropTypes.func,
-  IndicatorComponent: PropTypes.func,
-  ExpansionComponent: PropTypes.func,
+  LabelComponent: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+  ActionsComponent: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+  DividerComponent: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+  IndicatorComponent: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+  ExpansionComponent: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
 
   LabelProps: PropTypes.object,
   ActionsProps: PropTypes.object,
@@ -156,12 +165,14 @@ ExpandCollapse.propTypes = {
   ExpansionProps: PropTypes.object,
 
   contentContainerProps: PropTypes.object,
+  contentDisplay: PropTypes.string,
 
   actions: PropTypes.any,
   children: PropTypes.any,
   label: PropTypes.any,
 
-  keepMounted: PropTypes.bool
+  keepMounted: PropTypes.bool,
+  onExpandChange: PropTypes.func
 }
 
 export default ExpandCollapse

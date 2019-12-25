@@ -3,6 +3,9 @@ import ExpandCollapse from 'react-expansion'
 import { ExpansionDivider } from './divider/Divider'
 import { ExpansionLabel } from './label/Label'
 import FileSystemExpandCollapseDemo from './demos/filesystem/FileSystem'
+import PaperExpandCollapse from './demos/paper'
+import InlineExpandCollapse from './demos/inline'
+import AccordionDemo from './demos/accordion'
 
 function BaseIndicator({content, toggleExpansion, style = {}}) {
   return (
@@ -34,7 +37,6 @@ function DefaultIndicator({expanded, toggleExpansion, style}) {
   )
 }
 
-const Divider = () => <hr/>
 const ExpansionComponent = ({expanded, toggleExpansion, children, style = {}, clickable}) => {
   const styles = {...style}
   if (expanded) {
@@ -52,6 +54,7 @@ function NormalExpandCollapse(props) {
       Component='div'
       ComponentProps={{
         style: {
+          width: '50%',
           border: '1px solid #eee',
           borderRadius: 4,
           maxWidth: '60%',
@@ -75,30 +78,43 @@ function NormalExpandCollapse(props) {
     </ExpandCollapse>
   )
 }
+function Wrapper({children}) {
+  return <div style={{ width: '50%', margin: 'auto'}}>{children}</div>
+}
 
 export default function App() {
   return (
     <>
-      <FileSystemExpandCollapseDemo />
+      <Wrapper>
+        <AccordionDemo/>
+      </Wrapper>
+      <FileSystemExpandCollapseDemo/>
+      <Wrapper>
+        <InlineExpandCollapse/>
+        <InlineExpandCollapse/>
+        <InlineExpandCollapse/>
+      </Wrapper>
       <NormalExpandCollapse
         indicatorPosition='start'
         labelPosition='end'
         label='Keep Mounted'
         DividerComponent={() => null}
       />
+
       <NormalExpandCollapse
         indicatorPosition='start'
         labelPosition='end'
         keepMounted
-        label='Keep Mounted'
+        label='Label End'
       >
         <NormalExpandCollapse
           keepMounted
-          label='Keep Mounted'
+          label='Cool divider'
         >
           <NormalExpandCollapse
             keepMounted
-            label='Cool divider'
+            label='Indicator End'
+            indicatorPosition="end"
           >
             React
           </NormalExpandCollapse>
@@ -111,18 +127,6 @@ export default function App() {
           is awesome!
         </NormalExpandCollapse>
       </NormalExpandCollapse>
-      <NormalExpandCollapse
-        label="click to toggle expansion state"
-        IndicatorComponent={null}
-        DividerComponent={null}
-        ExpansionProps={{
-          style: {
-            borderRadius: 4,
-            cursor: 'pointer'
-          },
-          clickable: true
-        }}
-      />
     </>
   )
 }
