@@ -17,7 +17,9 @@ function FileUnit({children, filename, variant, fileUrl, ...rest}) {
       IndicatorComponent={FileSystemIndicator}
       IndicatorProps={{variant}}
       contentContainerProps={{
-        className: 'filesystem-content'
+        style: {
+          marginLeft: 24
+        }
       }}
       {...rest}
     >

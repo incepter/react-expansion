@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 const ExpandCollapse = React.forwardRef(({
   expanded: controlledExpansionState,
-  initialValue = false,
+  initialValue = true,
   labelPosition = 'start',
   actionsPosition = 'end',
   indicatorPosition = 'end',
@@ -141,7 +141,7 @@ ExpandCollapse.propTypes = {
   actionsPosition: PropTypes.oneOf(['start', 'end']),
   indicatorPosition: PropTypes.oneOf(['start', 'end']),
 
-  Component: PropTypes.func,
+  Component: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   LabelComponent: PropTypes.func,
   ActionsComponent: PropTypes.func,
   DividerComponent: PropTypes.func,
@@ -159,7 +159,7 @@ ExpandCollapse.propTypes = {
 
   actions: PropTypes.any,
   children: PropTypes.any,
-  label: PropTypes.element,
+  label: PropTypes.any,
 
   keepMounted: PropTypes.bool
 }

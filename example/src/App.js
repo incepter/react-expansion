@@ -56,7 +56,7 @@ function NormalExpandCollapse(props) {
           borderRadius: 4,
           maxWidth: '60%',
           margin: 'auto',
-          marginTop: 24
+          marginTop: 8
         }
       }}
       LabelComponent={ExpansionLabel}
@@ -65,7 +65,7 @@ function NormalExpandCollapse(props) {
       DividerComponent={ExpansionDivider}
       contentContainerProps={{
         style: {
-          padding: 24
+          padding: 8
         }
       }}
       label='expand/collapse'
@@ -98,17 +98,17 @@ export default function App() {
         >
           <NormalExpandCollapse
             keepMounted
-            label='Keep Mounted'
+            label='Cool divider'
           >
-            Hahaha
+            React
           </NormalExpandCollapse>
           <NormalExpandCollapse
             keepMounted
             label='Keep Mounted'
           >
-            Hahaha
+            Expansion
           </NormalExpandCollapse>
-          LOL:!
+          is awesome!
         </NormalExpandCollapse>
       </NormalExpandCollapse>
       <NormalExpandCollapse
@@ -129,6 +129,6 @@ export default function App() {
 
 function MyComponent() {
   return (
-    <span>Modern React component module</span>
+    <span>Expand collapse children</span>
   )
 }

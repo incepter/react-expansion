@@ -19,10 +19,10 @@ const useIndicatorStyles = makeStyles({
 });
 
 const FileSystemIndicator = React.memo(({ variant = 'file', expanded, position, toggleExpansion }) => {
+  const classes = useIndicatorStyles();
   if (variant === 'file') {
     return null;
   }
-  const classes = useIndicatorStyles();
   let IconToMount = null;
   if (!expanded && position === 'start') {
     IconToMount = ArrowRight;
