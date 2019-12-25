@@ -2,7 +2,8 @@
 
 > Fully customizable and reusable expand/collapse component
 
-[![NPM](https://img.shields.io/npm/v/react-expansion.svg)](https://www.npmjs.com/package/react-expansion) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![NPM](https://img.shields.io/npm/v/react-expansion.svg)](https://www.npmjs.com/package/react-expansion)
+[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 ## Install
 
@@ -13,6 +14,12 @@ or
 ```bash
 yarn add react-expansion
 ```
+## Demo
+This ongoing codeSandbox will contain reusable examples
+
+<a href="https://codesandbox.io/s/vigilant-paper-ynigk">
+  <img alt="Edit vigilant-paper-ynigk" src="https://codesandbox.io/static/img/play-codesandbox.svg">
+</a>
 
 ## Props and Usage hints
 
@@ -209,7 +216,6 @@ Here is a picture, I am still looking to create multiple other examples in a dem
 
 ![file system example](./images/other.PNG)
 
-[This sandbox](https://codesandbox.io/s/vigilant-paper-ynigk) will contain some examples.
 
 ## License
 
