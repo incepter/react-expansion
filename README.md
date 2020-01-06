@@ -5,6 +5,15 @@
 [![NPM](https://img.shields.io/npm/v/react-expansion.svg)](https://www.npmjs.com/package/react-expansion)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
+## What is this
+
+`react-expansion` sees the expand/collapse system as the composition of multiple bricks. the picture bellow resumes it all.
+
+![react-expansion](./images/react-expansion.png)
+
+
+Picture generated with [excalidraw](https://github.com/excalidraw/excalidraw).
+
 ## Install
 
 ```bash
@@ -91,7 +100,7 @@ function toggle() {
 
 ## Limitations and roadmap
 - The `ExpandCollapse` component wraps the children in a `div` so its `display` style is managed and thus we can offer the `keepMounted` ability
-- There is no support for animations, but we hope it will be released in the `v2`
+- There is no support for animations, but we hope it will be released in the `v2` (instead, you can pass the needed css using className or style via the `contentContainerProps`)
 
 
 ## Usage examples
