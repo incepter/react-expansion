@@ -1,6 +1,6 @@
 {
   "name": "react-expansion",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Fully customizable and reusable expand/collapse component",
   "author": "incepter",
   "license": "MIT",
@@ -37,7 +37,6 @@
     "@babel/plugin-proposal-optional-chaining": "^7.7.5",
     "@babel/preset-env": "^7.7.7",
     "@babel/preset-react": "^7.7.4",
-    "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "gh-pages": "^1.2.0",
     "prop-types": "^15.5.4",
     "rollup": "^1.27.13",
